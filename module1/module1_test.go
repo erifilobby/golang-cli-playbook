@@ -3,6 +3,7 @@ package module1
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -11,7 +12,7 @@ import (
 )
 
 func TestModule1CheckEnvGOOS(t *testing.T) {
-	found := OpenFileAndFindNthString("module1.txt", 0, "GOOS")
+	found := OpenFileAndFindNthString("C:\\Users\\KIIT\\Desktop\\module1.txt", 0, "set GOOS")
 
 	if !found {
 		t.Errorf("'go env' does not work as expected")
@@ -19,15 +20,16 @@ func TestModule1CheckEnvGOOS(t *testing.T) {
 }
 
 func TestModule1CheckEnvGOOSInJson(t *testing.T) {
-	content, _ := ioutil.ReadFile("module1.json")
+	content, _ := ioutil.ReadFile("C:\\Users\\arya.pandey\\Desktop\\module1.json")
 	var data map[string]interface{}
-
+	//fmt.Println(content)
 	err := json.Unmarshal(content, &data)
 	if err != nil {
 		t.Errorf("it looks 'module1.json' is not correctly formatted as a JSON file")
 	}
 
 	_, ok := data["GOOS"]
+	fmt.Println(data["GOOS"])
 	if !ok {
 		t.Errorf("your 'module1.json' does not include valid values that we check")
 	}
@@ -76,12 +78,14 @@ func OpenFileAndFindNthString(filename string, nth int, expected string) bool {
 	for scanner.Scan() {
 		t := scanner.Text()
 		trimmed := strings.Trim(t, " ")
+		//fmt.Println(trimmed)
 		if trimmed == "" {
 			continue
 		}
 
 		// matching logic
 		ss := strings.Split(trimmed, "=")
+
 		if ss[nth] == expected {
 			return true
 		}

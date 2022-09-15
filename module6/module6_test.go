@@ -9,7 +9,7 @@ import (
 )
 
 func TestModule6DocumentTest(t *testing.T) {
-	found := OpenFileAndFindString("module6.txt", "func FunctionForModule6GoDoc()")
+	found := OpenFileAndFindString("C:\\Users\\KIIT\\Desktop\\module6.txt", "func FunctionForModule6GoDoc()")
 
 	if !found {
 		t.Errorf("go doc does not generate the comment properly")
